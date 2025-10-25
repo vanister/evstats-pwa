@@ -1,0 +1,70 @@
+# EV Charge Tracker PWA - Project Context
+
+## Key Documentation
+- **Technical Design**: `docs/technical-design.md` - Full app architecture, data models, tech stack
+- **Implementation Tasks**: `docs/tasks.md` - Detailed task checklist with acceptance criteria
+
+## Tech Stack Reference
+- **Build**: Vite 7+
+- **Framework**: React 19 with TypeScript 5+
+- **UI**: Chakra UI v3 (@next for React 19 support)
+- **Routing**: React Router v7
+- **Database**: IndexedDB via Dexie.js with React hooks
+- **Dates**: date-fns
+- **Charts**: Recharts
+- **PWA**: vite-plugin-pwa
+- **Backup**: Google Drive API
+
+## Data Model Quick Reference
+```typescript
+// Vehicle: id (UUID), year, make, model, batterySize, trim?, nickname?, range?
+// Location: id (string), name, defaultRate
+// Session: id (UUID), vehicleId, locationId, date (ISO 8601), kwhAdded, rate, notes?
+```
+
+## Default Locations (Pre-seeded)
+- home: $0.17/kWh
+- work: $0.18/kWh
+- dc: $0.32/kWh (DC Fast)
+- other: $0.13/kWh
+
+## Critical Implementation Notes
+1. **Rate Snapshot**: Sessions must snapshot the location rate at creation time (not reference)
+2. **Date Handling**: Store all dates as ISO 8601 strings with timezone
+3. **Offline First**: IndexedDB for local storage, Google Drive for optional backup
+4. **Cost Override**: Allow optional cost override for variable DC fast charging pricing
+
+## Project Structure
+```
+src/
+  components/     - React UI components
+  lib/           - Utilities, database, types
+    db.ts        - Dexie database setup
+    types.ts     - TypeScript types
+    dates.ts     - date-fns utilities
+    backup.ts    - Cloud backup logic
+  App.tsx        - Main app with routing
+  main.tsx       - Entry point
+```
+
+## Task Workflow
+1. Update task status in `docs/tasks.md` as you complete acceptance criteria
+2. Keep todo list current for active work
+3. Commit after each major task completion
+4. Follow SOLID principles and code style from global CLAUDE.md
+
+## MVP Features (v1.0)
+- Vehicle management (add/edit/delete)
+- Session logging with rate snapshot
+- Location & rate configuration
+- Basic analytics (monthly totals, per-vehicle stats)
+- Manual Google Drive backup/restore
+- PWA offline functionality
+
+## Post-MVP (Future)
+- Custom locations
+- Advanced charts
+- CSV export
+- Bi-directional sync
+- Rate history tracking
+- Efficiency tracking (miles/kWh)
