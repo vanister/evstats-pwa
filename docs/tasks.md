@@ -138,10 +138,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 1.2
 
 **Acceptance Criteria:**
-- [ ] All types match technical design schema
-- [ ] Optional fields marked with `?`
-- [ ] Types exported for use across app
-- [ ] No TypeScript errors
+- [x] All types match technical design schema
+- [x] Optional fields marked with `?`
+- [x] Types exported for use across app
+- [x] No TypeScript errors
 
 ---
 
