@@ -118,10 +118,14 @@ src/
 ```
 
 ## Development Workflow
-1. Complete one task at a time from `docs/tasks.md`
-2. Mark acceptance criteria as complete in `docs/tasks.md`
-3. Commit after each major task completion
-4. Test thoroughly before marking task complete
+**IMPORTANT: One task at a time approach**
+1. Outline the plan for the next task before starting
+2. Get explicit confirmation from user to proceed
+3. Complete ONLY one task at a time from `docs/tasks.md`
+4. Mark acceptance criteria as complete in `docs/tasks.md`
+5. Test thoroughly before marking task complete
+6. Confirm task completion with user before moving to next task
+7. Commit after each major task completion
 
 ## MVP Features (v1.0)
 Focus on these features only:
