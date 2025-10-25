@@ -89,10 +89,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 1.1
 
 **Acceptance Criteria:**
-- [ ] PWA plugin configured in Vite
-- [ ] Manifest includes all required fields (name, short_name, theme_color, display)
-- [ ] Service worker registered successfully
-- [ ] Static assets cached for offline use
+- [x] PWA plugin configured in Vite
+- [x] Manifest includes all required fields (name, short_name, theme_color, display)
+- [x] Service worker registered successfully
+- [x] Static assets cached for offline use
 
 ---
 
