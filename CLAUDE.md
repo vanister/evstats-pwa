@@ -16,6 +16,12 @@ Always reference these files for project requirements and progress:
 - **PWA**: vite-plugin-pwa with Workbox
 - **Cloud Backup**: Google Drive API
 
+## MCP Servers
+This project has Chakra UI MCP server configured in `.vscode/mcp.json`:
+- **chakra-ui**: Provides Chakra UI component documentation and assistance
+- Start server: See `.vscode/mcp.json` for configuration (runs via `npx -y @chakra-ui/react-mcp`)
+- **Note**: If you need the MCP server running, you can ask the user to start it manually
+
 ## Data Models
 
 ### Vehicle
