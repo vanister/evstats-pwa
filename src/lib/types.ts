@@ -1,4 +1,4 @@
-export interface Vehicle {
+export type Vehicle = {
   id: string;
   year: number;
   make: string;
@@ -7,15 +7,15 @@ export interface Vehicle {
   trim?: string;
   nickname?: string;
   range?: number;
-}
+};
 
-export interface Location {
+export type Location = {
   id: string;
   name: string;
   defaultRate: number;
-}
+};
 
-export interface Session {
+export type Session = {
   id: string;
   vehicleId: string;
   locationId: string;
@@ -23,9 +23,9 @@ export interface Session {
   kwhAdded: number;
   rate: number;
   notes?: string;
-}
+};
 
-export interface BackupFile {
+export type BackupFile = {
   version: number;
   exportDate: string;
   data: {
@@ -33,6 +33,6 @@ export interface BackupFile {
     locations: Location[];
     sessions: Session[];
   };
-}
+};
 
 export type LocationId = 'home' | 'work' | 'dc' | 'other';
