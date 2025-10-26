@@ -220,23 +220,25 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Objective:** Implement CRUD operations for vehicle management.
 
 **Approach:**
-- Create addVehicle function (generates UUID, validates data)
+- Create validation helpers in separate file for form validation
+- Create addVehicle function (generates UUID)
 - Create updateVehicle function (preserves ID, updates fields)
-- Create deleteVehicle function (removes vehicle, consider session orphans)
+- Create deleteVehicle function (cascade deletes vehicle and sessions)
 - Create getVehicles function (returns all vehicles)
 - Create getVehicle function (returns single vehicle by ID)
 - Handle errors gracefully
 
 **Files:**
+- `src/lib/validation.ts` - validation helpers for forms (field-specific error objects)
 - `src/lib/db.ts` - add vehicle operations
 
 **Dependencies:** 2.2
 
 **Acceptance Criteria:**
-- [ ] All CRUD operations work correctly
-- [ ] UUIDs generated using crypto.randomUUID()
-- [ ] Data validation performed before database operations
-- [ ] Error handling implemented
+- [x] All CRUD operations work correctly
+- [x] UUIDs generated using crypto.randomUUID()
+- [x] Data validation helpers available for forms
+- [x] Error handling implemented
 
 ---
 
