@@ -10,7 +10,7 @@ export type Vehicle = {
 };
 
 export type Location = {
-  id: string;
+  id: Locations;
   name: string;
   defaultRate: number;
 };
@@ -18,7 +18,7 @@ export type Location = {
 export type Session = {
   id: string;
   vehicleId: string;
-  locationId: string;
+  locationId: Locations;
   date: string;
   kwhAdded: number;
   rate: number;
