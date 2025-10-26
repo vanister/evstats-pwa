@@ -35,4 +35,4 @@ export type BackupFile = {
   };
 };
 
-export type LocationId = 'home' | 'work' | 'dc' | 'other';
+export type Locations = 'home' | 'work' | 'dc' | 'other';
