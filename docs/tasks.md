@@ -184,10 +184,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.2
 
 **Acceptance Criteria:**
-- [ ] Four default locations created on first app load
-- [ ] Locations not duplicated on subsequent loads
-- [ ] Default rates match technical specification
-- [ ] Location IDs are fixed strings (not UUIDs)
+- [x] Four default locations created on first app load
+- [x] Locations not duplicated on subsequent loads
+- [x] Default rates match technical specification
+- [x] Location IDs are fixed strings (not UUIDs)
 
 ---
 
@@ -207,10 +207,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.1
 
 **Acceptance Criteria:**
-- [ ] Dates stored as ISO 8601 strings with timezone
-- [ ] Display formatting consistent across app
-- [ ] Timezone information preserved
-- [ ] Utilities handle edge cases (invalid dates, etc.)
+- [x] Dates stored as ISO 8601 strings with timezone
+- [x] Display formatting consistent across app
+- [x] Timezone information preserved
+- [x] Utilities handle edge cases (invalid dates, etc.)
 
 ---
 

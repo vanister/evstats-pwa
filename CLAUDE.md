@@ -18,8 +18,8 @@ Always reference these files for project requirements and progress:
 
 ## MCP Servers
 This project has Chakra UI MCP server configured in `.vscode/mcp.json`:
+- **Claude Code** Check to see if you have the same Chakra UI MCP server installed.
 - **chakra-ui**: Provides Chakra UI component documentation and assistance
-- Start server: See `.vscode/mcp.json` for configuration (runs via `npx -y @chakra-ui/react-mcp`)
 - **Note**: If you need the MCP server running, you can ask the user to start it manually
 
 ## Data Models
@@ -128,10 +128,10 @@ src/
 1. Outline the plan for the next task before starting
 2. Get explicit confirmation from user to proceed
 3. Complete ONLY one task at a time from `docs/tasks.md`
-4. Mark acceptance criteria as complete in `docs/tasks.md`
+4. **ALWAYS update `docs/tasks.md`** - Mark ALL acceptance criteria checkboxes as complete `[x]` when task is finished
 5. Test thoroughly before marking task complete
 6. Confirm task completion with user before moving to next task
-7. Commit after each major task completion
+7. Commit after each major task completion (including the updated `docs/tasks.md`)
 
 ## MVP Features (v1.0)
 Focus on these features only:
