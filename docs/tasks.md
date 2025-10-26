@@ -162,10 +162,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.1
 
 **Acceptance Criteria:**
-- [ ] Database instance created and exported
-- [ ] All three tables defined with correct indexes
-- [ ] Tables properly typed using TypeScript types from 2.1
-- [ ] Database opens successfully in browser
+- [x] Database instance created and exported
+- [x] All three tables defined with correct indexes
+- [x] Tables properly typed using TypeScript types from 2.1
+- [x] Database opens successfully in browser
 
 ---
 
