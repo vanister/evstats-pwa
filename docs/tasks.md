@@ -311,11 +311,11 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 3.1
 
 **Acceptance Criteria:**
-- [ ] All vehicles displayed with relevant information
-- [ ] Edit action opens form with pre-filled data
-- [ ] Delete action shows confirmation before removing
-- [ ] Empty state shown when no vehicles
-- [ ] List updates after add/edit/delete
+- [x] All vehicles displayed with relevant information
+- [x] Edit action opens form with pre-filled data
+- [x] Delete action shows confirmation before removing
+- [x] Empty state shown when no vehicles
+- [x] List updates after add/edit/delete
 
 ---
 

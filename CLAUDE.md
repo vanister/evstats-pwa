@@ -32,6 +32,9 @@ Always reference these files for project requirements and progress:
   - Complex UI state with nested properties
 - **Benefits**: Allows mutable-style updates while maintaining immutability under the hood
 
+## API References
+- **Dexie.js**: https://dexie.org/docs/API-Reference - IndexedDB wrapper API documentation
+
 ## MCP Servers
 This project has Chakra UI MCP server configured in `.vscode/mcp.json`:
 - **Claude Code** Check to see if you have the same Chakra UI MCP server installed.
