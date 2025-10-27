@@ -242,7 +242,33 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 
 ---
 
-### 3.2 Build Vehicle Form Component
+### 3.2 Set Up Chakra UI Theme
+**Objective:** Configure Chakra UI provider with custom theme for the app.
+
+**Approach:**
+- Wrap app with ChakraProvider
+- Define custom theme with EV-appropriate colors
+- Set primary theme color to green (#38A169 per PWA config)
+- Configure responsive breakpoints
+- Set default font sizes and spacing
+- Define component style overrides if needed
+
+**Files:**
+- `src/App.tsx` - add ChakraProvider
+- `src/theme.ts` - custom theme configuration (if needed)
+
+**Dependencies:** 1.1 (Chakra UI installed)
+
+**Acceptance Criteria:**
+- [ ] ChakraProvider wraps application
+- [ ] Custom theme colors applied
+- [ ] Theme consistent with PWA manifest colors
+- [ ] Responsive breakpoints configured
+- [ ] All components use theme values
+
+---
+
+### 3.3 Build Vehicle Form Component
 **Objective:** Create form for adding and editing vehicles with all required fields.
 
 **Approach:**
@@ -256,7 +282,7 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Files to Create:**
 - `src/components/VehicleForm.tsx` - vehicle form component
 
-**Dependencies:** 3.1, 1.3 (Chakra UI)
+**Dependencies:** 3.1 (Vehicle operations), 3.2 (Chakra UI setup)
 
 **Acceptance Criteria:**
 - [ ] Form includes all required and optional fields
@@ -267,7 +293,7 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 
 ---
 
-### 3.3 Build Vehicle List Component
+### 3.4 Build Vehicle List Component
 **Objective:** Display all vehicles with edit and delete actions.
 
 **Approach:**
@@ -293,21 +319,23 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 
 ---
 
-### 3.4 Create Vehicle Manager Screen
-**Objective:** Combine form and list into complete vehicle management interface.
+### 3.5 Build Vehicles Screen
+**Objective:** Create the main Vehicles screen combining form and list into a complete vehicle management interface.
 
 **Approach:**
-- Create container component for vehicles screen
+- Create VehicleManager component as the main Vehicles screen
 - Include VehicleList component
 - Include "Add Vehicle" button that shows VehicleForm
 - Handle state management for showing/hiding form
 - Coordinate form submission and list refresh
 - Implement proper layout with Chakra UI
 
-**Files to Create:**
-- `src/components/VehicleManager.tsx` - main vehicle screen
+**Note:** This builds the Vehicles screen component. Routing/navigation will be connected later in Task 8.2.
 
-**Dependencies:** 3.2, 3.3
+**Files to Create:**
+- `src/components/VehicleManager.tsx` - main Vehicles screen component
+
+**Dependencies:** 3.3 (VehicleForm), 3.4 (VehicleList)
 
 **Acceptance Criteria:**
 - [ ] Add button reveals form
@@ -685,28 +713,7 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 ## 8. UI/UX & Navigation
 
 ### 8.1 Set Up Chakra UI Theme
-**Objective:** Configure Chakra UI provider with custom theme for the app.
-
-**Approach:**
-- Wrap app with ChakraProvider
-- Define custom theme with EV-appropriate colors
-- Set primary theme color to green (#38A169 per PWA config)
-- Configure responsive breakpoints
-- Set default font sizes and spacing
-- Define component style overrides if needed
-
-**Files:**
-- `src/App.tsx` - add ChakraProvider
-- `src/theme.ts` - custom theme configuration (if needed)
-
-**Dependencies:** 1.1 (Chakra UI installed)
-
-**Acceptance Criteria:**
-- [ ] ChakraProvider wraps application
-- [ ] Custom theme colors applied
-- [ ] Theme consistent with PWA manifest colors
-- [ ] Responsive breakpoints configured
-- [ ] All components use theme values
+**Note:** This task was moved earlier to Task 3.2 to support building vehicle form components. See Task 3.2 for details.
 
 ---
 
