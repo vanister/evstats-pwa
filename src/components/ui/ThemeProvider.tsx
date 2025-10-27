@@ -38,10 +38,10 @@ const config = defineConfig({
 
 const system = createSystem(defaultConfig, config);
 
-type ProviderProps = {
+type ThemeProviderProps = {
   children: ReactNode;
 };
 
-export function Provider({ children }: ProviderProps) {
+export function ThemeProvider({ children }: ThemeProviderProps) {
   return <ChakraProvider value={system}>{children}</ChakraProvider>;
 }
