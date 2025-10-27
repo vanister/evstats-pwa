@@ -11,6 +11,7 @@ Always reference these files for project requirements and progress:
 - **UI Library**: Chakra UI v3 (using @next tag for React 19 compatibility)
 - **Routing**: React Router v7
 - **Database**: IndexedDB via Dexie.js with dexie-react-hooks
+- **State Management**: Immer for complex/large state objects (via `useImmerState` hook)
 - **Date Handling**: date-fns
 - **Charts**: Recharts
 - **PWA**: vite-plugin-pwa with Workbox
@@ -19,7 +20,17 @@ Always reference these files for project requirements and progress:
 ## File Naming Conventions
 - **Components**: TitleCase with `.tsx` extension (e.g., `VehicleForm.tsx`, `SessionList.tsx`)
   - **Exception**: `main.tsx` uses camelCase as the application entry point
+- **Hooks**: Separate folder `src/hooks/` with each hook in its own file (e.g., `useImmerState.ts`)
 - **Helpers/Utils/Other files**: camelCase with `.ts` extension (e.g., `validation.ts`, `dates.ts`, `db.ts`)
+
+## State Management Guidelines
+- **Simple state**: Use standard `useState` for primitives (strings, numbers, booleans)
+- **Complex state objects**: Use `useImmerState` hook for objects with nested properties or frequent updates
+- **Examples of when to use Immer**:
+  - Form data objects with multiple fields
+  - Validation error objects
+  - Complex UI state with nested properties
+- **Benefits**: Allows mutable-style updates while maintaining immutability under the hood
 
 ## MCP Servers
 This project has Chakra UI MCP server configured in `.vscode/mcp.json`:

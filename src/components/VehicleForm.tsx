@@ -3,6 +3,7 @@ import { Box, Button, Field, Input, Stack } from '@chakra-ui/react';
 import type { Vehicle } from '@/lib/types';
 import { validateVehicle, type VehicleValidationErrors } from '@/lib/validation';
 import { addVehicle, updateVehicle } from '@/lib/db';
+import { useImmerState } from '@/hooks/useImmerState';
 
 type VehicleFormProps = {
   vehicle?: Vehicle;
@@ -31,8 +32,8 @@ const initialFormData: FormData = {
 };
 
 export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [errors, setErrors] = useState<VehicleValidationErrors>({});
+  const [formData, setFormData] = useImmerState<FormData>(initialFormData);
+  const [errors, setErrors] = useImmerState<VehicleValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -54,9 +55,13 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
   }, [vehicle]);
 
   const handleChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((draft) => {
+      draft[field] = value;
+    });
     if (errors[field as keyof VehicleValidationErrors]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((draft) => {
+        delete draft[field as keyof VehicleValidationErrors];
+      });
     }
     setSuccessMessage('');
     setErrorMessage('');
@@ -98,6 +103,7 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
       }
 
       if (onSuccess) {
+        // TODO - why?
         setTimeout(() => onSuccess(), 500);
       }
     } catch (error) {
@@ -109,15 +115,19 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
   };
 
   const handleReset = () => {
-    setFormData(vehicle ? {
-      year: vehicle.year.toString(),
-      make: vehicle.make,
-      model: vehicle.model,
-      batterySize: vehicle.batterySize.toString(),
-      trim: vehicle.trim || '',
-      nickname: vehicle.nickname || '',
-      range: vehicle.range?.toString() || ''
-    } : initialFormData);
+    if (vehicle) {
+      setFormData({
+        year: vehicle.year.toString(),
+        make: vehicle.make,
+        model: vehicle.model,
+        batterySize: vehicle.batterySize.toString(),
+        trim: vehicle.trim || '',
+        nickname: vehicle.nickname || '',
+        range: vehicle.range?.toString() || ''
+      });
+    } else {
+      setFormData(initialFormData);
+    }
     setErrors({});
     setSuccessMessage('');
     setErrorMessage('');
@@ -217,30 +227,16 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
         )}
 
         <Stack direction="row" gap={2}>
-          <Button
-            type="submit"
-            colorPalette="brand"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Saving...' : (isEditMode ? 'Update Vehicle' : 'Add Vehicle')}
+          <Button type="submit" colorPalette="brand" disabled={isLoading}>
+            {isLoading ? 'Saving...' : isEditMode ? 'Update Vehicle' : 'Add Vehicle'}
           </Button>
 
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleReset}
-            disabled={isLoading}
-          >
+          <Button type="button" variant="outline" onClick={handleReset} disabled={isLoading}>
             Reset
           </Button>
 
           {onCancel && (
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={onCancel}
-              disabled={isLoading}
-            >
+            <Button type="button" variant="ghost" onClick={onCancel} disabled={isLoading}>
               Cancel
             </Button>
           )}
