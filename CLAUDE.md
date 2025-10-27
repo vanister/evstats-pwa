@@ -16,6 +16,11 @@ Always reference these files for project requirements and progress:
 - **PWA**: vite-plugin-pwa with Workbox
 - **Cloud Backup**: Google Drive API
 
+## File Naming Conventions
+- **Components**: TitleCase with `.tsx` extension (e.g., `VehicleForm.tsx`, `SessionList.tsx`)
+  - **Exception**: `main.tsx` uses camelCase as the application entry point
+- **Helpers/Utils/Other files**: camelCase with `.ts` extension (e.g., `validation.ts`, `dates.ts`, `db.ts`)
+
 ## MCP Servers
 This project has Chakra UI MCP server configured in `.vscode/mcp.json`:
 - **Claude Code** Check to see if you have the same Chakra UI MCP server installed.
