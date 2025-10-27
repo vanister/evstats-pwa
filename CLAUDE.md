@@ -23,6 +23,11 @@ Always reference these files for project requirements and progress:
 - **Hooks**: Separate folder `src/hooks/` with each hook in its own file (e.g., `useImmerState.ts`)
 - **Helpers/Utils/Other files**: camelCase with `.ts` extension (e.g., `validation.ts`, `dates.ts`, `db.ts`)
 
+## Folder Organization
+- **Screen-specific components**: Grouped in `src/screens/{feature}/` (e.g., `src/screens/vehicles/VehicleForm.tsx`)
+- **Shared/reusable components**: In `src/components/` or feature-specific subfolders
+- **Principle**: Organize by feature/screen for better scalability and maintainability
+
 ## State Management Guidelines
 - **Simple state**: Use standard `useState` for primitives (strings, numbers, booleans)
 - **Complex state objects**: Use `useImmerState` hook for objects with nested properties or frequent updates
@@ -127,15 +132,21 @@ cost: costOverride ?? (kwhAdded * rate)
 ## Project Structure
 ```
 src/
-  components/          # React UI components
-    SessionForm.tsx
-    SessionList.tsx
-    VehicleManager.tsx
-    Settings.tsx
+  screens/             # Screen-specific components grouped by feature
+    vehicles/
+      VehicleForm.tsx
+      VehicleList.tsx
+      VehicleManager.tsx
+  components/          # Shared/reusable UI components
+    ui/
+      ThemeProvider.tsx
+  hooks/               # Custom React hooks
+    useImmerState.ts
   lib/                 # Utilities and business logic
     db.ts             # Dexie database configuration
     types.ts          # TypeScript type definitions
     dates.ts          # date-fns utility functions
+    validation.ts     # Form validation helpers
     backup.ts         # Google Drive backup/restore
     calculations.ts   # Cost and analytics calculations
   App.tsx             # Main app with routing
