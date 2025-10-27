@@ -1,17 +1,26 @@
 import { useState } from 'react'
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <h1>EV Charge Tracker</h1>
-      <div>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
+    <Box p={8}>
+      <Stack gap={4} align="flex-start">
+        <Heading size="2xl" color="brand.solid">
+          EV Charge Tracker
+        </Heading>
+        <Text color="fg.muted">
+          A Progressive Web App for tracking electric vehicle charging sessions
+        </Text>
+        <Button
+          colorPalette="brand"
+          onClick={() => setCount((count) => count + 1)}
+        >
+          Count is {count}
+        </Button>
+      </Stack>
+    </Box>
   )
 }
 
