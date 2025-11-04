@@ -2,6 +2,7 @@ import type { Vehicle, Location, Locations, Session } from './types';
 import type { DbInstance } from './dexieDb';
 import { createDexieDb } from './dexieDb';
 import { getCurrentTimestamp } from './dates';
+import { generateId } from './crypto';
 
 let db: DbInstance = createDexieDb();
 
@@ -17,7 +18,7 @@ export function getDb(): DbInstance {
 
 export async function addVehicle(data: Omit<Vehicle, 'id'>): Promise<Vehicle> {
   const vehicle: Vehicle = {
-    id: crypto.randomUUID(),
+    id: generateId(),
     ...data,
   };
 
@@ -101,7 +102,7 @@ export async function addSession(
   const rate = await getLocationRate(data.locationId);
 
   const session: Session = {
-    id: crypto.randomUUID(),
+    id: generateId(),
     vehicleId: data.vehicleId,
     locationId: data.locationId,
     date: data.date || getCurrentTimestamp(),

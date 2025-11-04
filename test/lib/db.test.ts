@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createMockDb, type MockDbInstance } from '../mockDexie';
 import {
   setDb,
@@ -10,6 +10,10 @@ import {
   deleteVehicle,
 } from '@/lib/db';
 import type { Vehicle } from '@/lib/types';
+
+vi.mock('@/lib/crypto', () => ({
+  generateId: vi.fn(() => crypto.randomUUID()),
+}));
 
 describe('Database Operations', () => {
   let mockDb: MockDbInstance;
