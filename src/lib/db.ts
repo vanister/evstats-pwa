@@ -1,4 +1,4 @@
-import type { Vehicle } from './types';
+import type { Vehicle, Location, Locations } from './types';
 import type { DbInstance } from './dexieDb';
 import { createDexieDb } from './dexieDb';
 
@@ -60,4 +60,34 @@ export async function deleteVehicle(id: string): Promise<void> {
     await db.sessions.where('vehicleId').equals(id).delete();
     await db.vehicles.delete(id);
   });
+}
+
+// Location operations
+
+export async function getLocations(): Promise<Location[]> {
+  return db.locations.toArray();
+}
+
+export async function getLocation(id: Locations): Promise<Location | undefined> {
+  return db.locations.get(id);
+}
+
+// Rate snapshot utilities
+
+export async function getLocationRate(locationId: Locations): Promise<number> {
+  const location = await db.locations.get(locationId);
+
+  if (!location) {
+    throw new Error(`Location with id ${locationId} not found`);
+  }
+
+  return location.defaultRate;
+}
+
+export function calculateSessionCost(kwhAdded: number, rate: number, costOverride?: number): number {
+  if (costOverride != null) {
+    return costOverride;
+  }
+
+  return kwhAdded * rate;
 }

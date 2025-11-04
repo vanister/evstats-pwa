@@ -410,10 +410,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.2, 2.3
 
 **Acceptance Criteria:**
-- [ ] Rate captured from location at session creation time
-- [ ] Rate stored in session (not referenced)
-- [ ] Cost override optional and takes precedence
-- [ ] Cost calculation accurate
+- [x] Rate captured from location at session creation time
+- [x] Rate stored in session (not referenced)
+- [x] Cost override optional and takes precedence
+- [x] Cost calculation accurate
 
 ---
 
