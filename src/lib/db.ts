@@ -1,6 +1,7 @@
-import type { Vehicle, Location, Locations } from './types';
+import type { Vehicle, Location, Locations, Session } from './types';
 import type { DbInstance } from './dexieDb';
 import { createDexieDb } from './dexieDb';
+import { getCurrentTimestamp } from './dates';
 
 let db: DbInstance = createDexieDb();
 
@@ -90,4 +91,64 @@ export function calculateSessionCost(kwhAdded: number, rate: number, costOverrid
   }
 
   return kwhAdded * rate;
+}
+
+// Session CRUD operations
+
+export async function addSession(
+  data: Omit<Session, 'id' | 'rate'> & { costOverride?: number },
+): Promise<Session> {
+  const rate = await getLocationRate(data.locationId);
+
+  const session: Session = {
+    id: crypto.randomUUID(),
+    vehicleId: data.vehicleId,
+    locationId: data.locationId,
+    date: data.date || getCurrentTimestamp(),
+    kwhAdded: data.kwhAdded,
+    rate,
+    notes: data.notes,
+  };
+
+  await db.sessions.add(session);
+
+  return session;
+}
+
+export async function updateSession(
+  id: string,
+  updates: Partial<Omit<Session, 'id'>>,
+): Promise<Session> {
+  const existing = await db.sessions.get(id);
+
+  if (!existing) {
+    throw new Error(`Session with id ${id} not found`);
+  }
+
+  const updated = { ...existing, ...updates };
+  await db.sessions.put(updated);
+
+  return updated;
+}
+
+export async function deleteSession(id: string): Promise<void> {
+  const session = await db.sessions.get(id);
+
+  if (!session) {
+    throw new Error(`Session with id ${id} not found`);
+  }
+
+  await db.sessions.delete(id);
+}
+
+export async function getSessions(): Promise<Session[]> {
+  return db.sessions.orderBy('date').reverse().toArray();
+}
+
+export async function getSessionsByVehicle(vehicleId: string): Promise<Session[]> {
+  return db.sessions.where('vehicleId').equals(vehicleId).reverse().sortBy('date');
+}
+
+export async function getSessionsByDateRange(startDate: string, endDate: string): Promise<Session[]> {
+  return db.sessions.where('date').between(startDate, endDate, true, true).reverse().sortBy('date');
 }
