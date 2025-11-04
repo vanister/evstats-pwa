@@ -462,12 +462,12 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 4.2, 3.1 (needs vehicles)
 
 **Acceptance Criteria:**
-- [ ] All fields present and functional
-- [ ] Vehicle and location dropdowns populated from database
-- [ ] Date picker defaults to current time
-- [ ] Required field validation works
-- [ ] Cost override optional but validated if provided
-- [ ] Form submission creates session correctly
+- [x] All fields present and functional
+- [x] Vehicle and location dropdowns populated from database
+- [x] Date picker defaults to current time
+- [x] Required field validation works
+- [x] Cost override optional but validated if provided
+- [x] Form submission creates session correctly
 
 ---
 

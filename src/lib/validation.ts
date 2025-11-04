@@ -1,4 +1,4 @@
-import type { Vehicle } from './types';
+import type { Vehicle, Session } from './types';
 
 export type VehicleValidationErrors = {
   year?: string;
@@ -48,6 +48,56 @@ export function validateVehicle(
       errors.range = 'Range must be a number';
     } else if (data.range <= 0) {
       errors.range = 'Range must be greater than 0';
+    }
+  }
+
+  return Object.keys(errors).length > 0 ? errors : null;
+}
+
+export type SessionValidationErrors = {
+  vehicleId?: string;
+  locationId?: string;
+  date?: string;
+  kwhAdded?: string;
+  costOverride?: string;
+};
+
+export function validateSession(
+  data: Partial<Omit<Session, 'id' | 'rate'>> & { costOverride?: number },
+): SessionValidationErrors | null {
+  const errors: SessionValidationErrors = {};
+
+  if (!data.vehicleId) {
+    errors.vehicleId = 'Vehicle is required';
+  } else if (typeof data.vehicleId !== 'string' || data.vehicleId.trim() === '') {
+    errors.vehicleId = 'Vehicle must be selected';
+  }
+
+  if (!data.locationId) {
+    errors.locationId = 'Location is required';
+  } else if (typeof data.locationId !== 'string' || data.locationId.trim() === '') {
+    errors.locationId = 'Location must be selected';
+  }
+
+  if (!data.date) {
+    errors.date = 'Date is required';
+  } else if (typeof data.date !== 'string' || data.date.trim() === '') {
+    errors.date = 'Date must be provided';
+  }
+
+  if (data.kwhAdded === undefined || data.kwhAdded === null) {
+    errors.kwhAdded = 'kWh added is required';
+  } else if (typeof data.kwhAdded !== 'number') {
+    errors.kwhAdded = 'kWh added must be a number';
+  } else if (data.kwhAdded <= 0) {
+    errors.kwhAdded = 'kWh added must be greater than 0';
+  }
+
+  if (data.costOverride !== undefined && data.costOverride !== null) {
+    if (typeof data.costOverride !== 'number') {
+      errors.costOverride = 'Cost override must be a number';
+    } else if (data.costOverride < 0) {
+      errors.costOverride = 'Cost override cannot be negative';
     }
   }
 
