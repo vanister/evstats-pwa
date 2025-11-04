@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getCurrentTimestamp, formatDate, formatDateTime } from './dates';
+import { getCurrentTimestamp, formatDate, formatDateTime } from '@/lib/dates';
 
 describe('dates utility', () => {
   describe('getCurrentTimestamp', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateVehicle } from './validation';
+import { validateVehicle } from '@/lib/validation';
 
 describe('validation utility', () => {
   describe('validateVehicle', () => {

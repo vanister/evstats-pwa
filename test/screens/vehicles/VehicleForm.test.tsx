@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '../../../test/testUtils';
-import { VehicleForm } from './VehicleForm';
+import { render, screen } from '../../testUtils';
+import { VehicleForm } from '@/screens/vehicles/VehicleForm';
 
 describe('VehicleForm', () => {
   it('renders all required form fields', () => {
