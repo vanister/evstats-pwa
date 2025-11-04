@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,7 +13,8 @@ export default defineConfig({
       manifest: {
         name: 'EV Charge Tracker',
         short_name: 'EV Tracker',
-        description: 'Track electric vehicle charging sessions, costs, and statistics',
+        description:
+          'Track electric vehicle charging sessions, costs, and statistics',
         theme_color: '#38A169',
         background_color: '#ffffff',
         display: 'standalone',
@@ -21,19 +22,19 @@ export default defineConfig({
           {
             src: '/icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
             src: '/icon-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
+            type: 'image/png',
+          },
+        ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-      }
-    })
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      },
+    }),
   ],
   test: {
     globals: true,
@@ -41,4 +42,4 @@ export default defineConfig({
     setupFiles: './test/setup.ts',
     css: true,
   },
-})
+});

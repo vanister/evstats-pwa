@@ -1,8 +1,8 @@
-import { useState } from 'react'
-import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react'
+import { useState } from 'react';
+import { Box, Button, Heading, Stack, Text } from '@chakra-ui/react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <Box p={8}>
@@ -21,7 +21,7 @@ function App() {
         </Button>
       </Stack>
     </Box>
-  )
+  );
 }
 
-export default App
+export default App;

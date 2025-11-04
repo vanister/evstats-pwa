@@ -10,7 +10,9 @@ export type VehicleValidationErrors = {
   range?: string;
 };
 
-export function validateVehicle(data: Partial<Vehicle>): VehicleValidationErrors | null {
+export function validateVehicle(
+  data: Partial<Vehicle>,
+): VehicleValidationErrors | null {
   const errors: VehicleValidationErrors = {};
 
   if (!data.year) {

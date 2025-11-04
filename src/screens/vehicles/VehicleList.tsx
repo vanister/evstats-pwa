@@ -11,7 +11,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { getVehicles, deleteVehicle } from '@/lib/db';
 import type { Vehicle } from '@/lib/types';
@@ -74,7 +74,8 @@ export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
           <VStack textAlign="center">
             <EmptyState.Title>No vehicles yet</EmptyState.Title>
             <EmptyState.Description>
-              Add your first electric vehicle to start tracking charging sessions
+              Add your first electric vehicle to start tracking charging
+              sessions
             </EmptyState.Description>
           </VStack>
         </EmptyState.Content>
@@ -133,7 +134,11 @@ export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
 
             <Card.Footer justifyContent="flex-end" gap={2}>
               {onEdit && (
-                <Button variant="outline" size="sm" onClick={() => onEdit(vehicle)}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onEdit(vehicle)}
+                >
                   Edit
                 </Button>
               )}
@@ -171,14 +176,23 @@ export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
                   ?
                 </Text>
                 <Text mt={2} color="fg.muted">
-                  This will also delete all associated charging sessions. This action cannot be undone.
+                  This will also delete all associated charging sessions. This
+                  action cannot be undone.
                 </Text>
               </Dialog.Body>
               <Dialog.Footer>
-                <Button variant="outline" onClick={handleDeleteCancel} disabled={isDeleting}>
+                <Button
+                  variant="outline"
+                  onClick={handleDeleteCancel}
+                  disabled={isDeleting}
+                >
                   Cancel
                 </Button>
-                <Button colorPalette="red" onClick={handleDeleteConfirm} disabled={isDeleting}>
+                <Button
+                  colorPalette="red"
+                  onClick={handleDeleteConfirm}
+                  disabled={isDeleting}
+                >
                   {isDeleting ? 'Deleting...' : 'Delete'}
                 </Button>
               </Dialog.Footer>

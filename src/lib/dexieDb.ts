@@ -5,7 +5,7 @@ export const DEFAULT_LOCATIONS: Location[] = [
   { id: 'home', name: 'Home', defaultRate: 0.17 },
   { id: 'work', name: 'Work', defaultRate: 0.18 },
   { id: 'dc', name: 'DC Fast', defaultRate: 0.32 },
-  { id: 'other', name: 'Other', defaultRate: 0.13 }
+  { id: 'other', name: 'Other', defaultRate: 0.13 },
 ];
 
 export type DbInstance = Dexie & {
@@ -20,7 +20,7 @@ export function createDexieDb(): DbInstance {
   database.version(1).stores({
     vehicles: 'id',
     locations: 'id',
-    sessions: 'id, date, vehicleId'
+    sessions: 'id, date, vehicleId',
   });
 
   database.on('ready', async () => {

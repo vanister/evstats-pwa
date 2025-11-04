@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, Field, Input, Stack } from '@chakra-ui/react';
 import type { Vehicle } from '@/lib/types';
-import { validateVehicle, type VehicleValidationErrors } from '@/lib/validation';
+import {
+  validateVehicle,
+  type VehicleValidationErrors,
+} from '@/lib/validation';
 import { addVehicle, updateVehicle } from '@/lib/db';
 import { useImmerState } from '@/hooks/useImmerState';
 
@@ -28,10 +31,14 @@ const initialFormData: FormData = {
   batterySize: '',
   trim: '',
   nickname: '',
-  range: ''
+  range: '',
 };
 
-export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) {
+export function VehicleForm({
+  vehicle,
+  onSuccess,
+  onCancel,
+}: VehicleFormProps) {
   const [formData, setFormData] = useImmerState<FormData>(initialFormData);
   const [errors, setErrors] = useImmerState<VehicleValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +56,7 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
         batterySize: vehicle.batterySize.toString(),
         trim: vehicle.trim || '',
         nickname: vehicle.nickname || '',
-        range: vehicle.range?.toString() || ''
+        range: vehicle.range?.toString() || '',
       });
     }
   }, [vehicle]);
@@ -77,10 +84,12 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
       year: formData.year ? Number(formData.year) : undefined,
       make: formData.make,
       model: formData.model,
-      batterySize: formData.batterySize ? Number(formData.batterySize) : undefined,
+      batterySize: formData.batterySize
+        ? Number(formData.batterySize)
+        : undefined,
       trim: formData.trim || undefined,
       nickname: formData.nickname || undefined,
-      range: formData.range ? Number(formData.range) : undefined
+      range: formData.range ? Number(formData.range) : undefined,
     };
 
     const validationErrors = validateVehicle(vehicleData);
@@ -107,7 +116,8 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
         setTimeout(() => onSuccess(), 500);
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to save vehicle';
+      const message =
+        error instanceof Error ? error.message : 'Failed to save vehicle';
       setErrorMessage(message);
     } finally {
       setIsLoading(false);
@@ -123,7 +133,7 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
         batterySize: vehicle.batterySize.toString(),
         trim: vehicle.trim || '',
         nickname: vehicle.nickname || '',
-        range: vehicle.range?.toString() || ''
+        range: vehicle.range?.toString() || '',
       });
     } else {
       setFormData(initialFormData);
@@ -179,7 +189,9 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
             min="0"
             step="0.1"
           />
-          {errors.batterySize && <Field.ErrorText>{errors.batterySize}</Field.ErrorText>}
+          {errors.batterySize && (
+            <Field.ErrorText>{errors.batterySize}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root invalid={!!errors.trim}>
@@ -199,7 +211,9 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
             onChange={(e) => handleChange('nickname', e.target.value)}
             placeholder="My EV"
           />
-          {errors.nickname && <Field.ErrorText>{errors.nickname}</Field.ErrorText>}
+          {errors.nickname && (
+            <Field.ErrorText>{errors.nickname}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root invalid={!!errors.range}>
@@ -228,15 +242,29 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
 
         <Stack direction="row" gap={2}>
           <Button type="submit" colorPalette="brand" disabled={isLoading}>
-            {isLoading ? 'Saving...' : isEditMode ? 'Update Vehicle' : 'Add Vehicle'}
+            {isLoading
+              ? 'Saving...'
+              : isEditMode
+                ? 'Update Vehicle'
+                : 'Add Vehicle'}
           </Button>
 
-          <Button type="button" variant="outline" onClick={handleReset} disabled={isLoading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleReset}
+            disabled={isLoading}
+          >
             Reset
           </Button>
 
           {onCancel && (
-            <Button type="button" variant="ghost" onClick={onCancel} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onCancel}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
           )}

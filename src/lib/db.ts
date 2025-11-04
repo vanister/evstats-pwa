@@ -17,7 +17,7 @@ export function getDb(): DbInstance {
 export async function addVehicle(data: Omit<Vehicle, 'id'>): Promise<Vehicle> {
   const vehicle: Vehicle = {
     id: crypto.randomUUID(),
-    ...data
+    ...data,
   };
 
   await db.vehicles.add(vehicle);
@@ -27,7 +27,7 @@ export async function addVehicle(data: Omit<Vehicle, 'id'>): Promise<Vehicle> {
 
 export async function updateVehicle(
   id: string,
-  updates: Partial<Omit<Vehicle, 'id'>>
+  updates: Partial<Omit<Vehicle, 'id'>>,
 ): Promise<Vehicle> {
   const existing = await db.vehicles.get(id);
 

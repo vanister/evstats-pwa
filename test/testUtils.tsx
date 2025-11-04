@@ -9,7 +9,7 @@ type CustomRenderOptions = Omit<RenderOptions, 'wrapper'>;
 function customRender(ui: ReactElement, options?: CustomRenderOptions) {
   return render(ui, {
     wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
-    ...options
+    ...options,
   });
 }
 
