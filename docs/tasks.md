@@ -119,6 +119,52 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 
 ---
 
+### 1.5 Set Up Testing Infrastructure
+**Objective:** Configure Vitest and React Testing Library for component and unit testing.
+
+**Approach:**
+- Install Vitest as test runner (compatible with Vite)
+- Install React Testing Library (@testing-library/react, @testing-library/jest-dom, @testing-library/user-event)
+- Install jsdom for DOM simulation in tests
+- Configure Vitest in vite.config.ts with globals and jsdom environment
+- Create test setup file with cleanup and jest-dom imports
+- Create custom test utilities with ThemeProvider wrapper
+- Add test scripts to package.json (test, test:ui, test:coverage, test:once)
+- Create test/ directory for test infrastructure
+- Add coverage directory to .gitignore
+- Add TypeScript references for Vitest and jest-dom
+- Create initial test files alongside components and utilities
+
+**Files:**
+- `package.json` - add testing dependencies and scripts
+- `vite.config.ts` - Vitest configuration
+- `src/vite-env.d.ts` - TypeScript references for test globals
+- `.gitignore` - exclude coverage directory
+- `test/setup.ts` - test environment setup with cleanup
+- `test/testUtils.tsx` - custom render with ThemeProvider
+- `test/README.md` - testing guide and best practices
+- `src/lib/dates.test.ts` - initial tests for date utilities
+- `src/lib/validation.test.ts` - initial tests for validation utilities
+- `src/screens/vehicles/VehicleForm.test.tsx` - initial component tests
+- `src/screens/vehicles/VehicleList.test.tsx` - initial component tests
+
+**Dependencies:** 1.1 (Dependencies installed), 3.2 (ChakraProvider for test wrapper)
+
+**Acceptance Criteria:**
+- [x] Vitest installed and configured
+- [x] React Testing Library dependencies installed
+- [x] jsdom environment configured
+- [x] Test setup file with afterEach cleanup
+- [x] Custom render utility wraps with ThemeProvider
+- [x] Test scripts available (test, test:ui, test:coverage, test:once)
+- [x] TypeScript recognizes Vitest globals and jest-dom matchers
+- [x] Coverage directory excluded from git
+- [x] Test infrastructure documented in test/README.md
+- [x] Initial test files created for existing utilities and components
+- [x] Tests can be run with npm test
+
+---
+
 ## 2. Database & Data Layer
 
 ### 2.1 Define TypeScript Types
