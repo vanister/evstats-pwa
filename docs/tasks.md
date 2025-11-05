@@ -490,11 +490,11 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 4.2
 
 **Acceptance Criteria:**
-- [ ] Sessions displayed with all relevant details
-- [ ] Sorted by date (newest first)
-- [ ] Filtering works for vehicle, location, date
-- [ ] Empty state shown when no sessions
-- [ ] Cost displayed correctly using snapshotted rate
+- [x] Sessions displayed with all relevant details
+- [x] Sorted by date (newest first)
+- [x] Filtering works for vehicle, location, date
+- [x] Empty state shown when no sessions
+- [x] Cost displayed correctly using snapshotted rate
 
 ---
 
