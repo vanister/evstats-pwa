@@ -1,18 +1,13 @@
 import type { Vehicle, Location, Locations, Session } from './types';
 import type { DbInstance } from './dexieDb';
-import { createDexieDb } from './dexieDb';
 import { getCurrentTimestamp } from './dates';
 import { generateId } from './crypto';
 import { validateLocationRate } from './validation';
 
-let db: DbInstance = createDexieDb();
+let db: DbInstance;
 
-export function setDb(newDb: DbInstance): void {
-  db = newDb;
-}
-
-export function getDb(): DbInstance {
-  return db;
+export function initDb(dbInstance: DbInstance): void {
+  db = dbInstance;
 }
 
 // Vehicle CRUD operations

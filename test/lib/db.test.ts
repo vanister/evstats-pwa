@@ -1,8 +1,13 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { createMockDb, type MockDbInstance } from '../mockDexie';
+import type { Vehicle, Locations } from '@/lib/types';
+
+vi.mock('@/lib/crypto', () => ({
+  generateId: vi.fn(() => crypto.randomUUID())
+}));
+
 import {
-  setDb,
-  getDb,
+  initDb,
   addVehicle,
   getVehicles,
   getVehicle,
@@ -12,19 +17,13 @@ import {
   getLocation,
   updateLocationRate
 } from '@/lib/db';
-import type { Vehicle, Locations } from '@/lib/types';
-
-vi.mock('@/lib/crypto', () => ({
-  generateId: vi.fn(() => crypto.randomUUID())
-}));
 
 describe('Database Operations', () => {
   let mockDb: MockDbInstance;
 
   beforeEach(() => {
     mockDb = createMockDb();
-    setDb(mockDb);
-    mockDb.reset();
+    initDb(mockDb);
   });
 
   describe('Vehicle CRUD Operations', () => {
@@ -139,8 +138,7 @@ describe('Database Operations', () => {
         batterySize: 75
       });
 
-      const db = getDb();
-      await db.sessions.add({
+      await mockDb.sessions.add({
         id: 'session-1',
         vehicleId: vehicle.id,
         locationId: 'home',
@@ -151,7 +149,7 @@ describe('Database Operations', () => {
 
       await deleteVehicle(vehicle.id);
 
-      const sessions = await db.sessions.toArray();
+      const sessions = await mockDb.sessions.toArray();
       expect(sessions).toHaveLength(0);
     });
 
@@ -164,8 +162,7 @@ describe('Database Operations', () => {
 
   describe('Location Operations', () => {
     beforeEach(async () => {
-      const db = getDb();
-      await db.locations.bulkAdd([
+      await mockDb.locations.bulkAdd([
         { id: 'home', name: 'Home', defaultRate: 0.17 },
         { id: 'work', name: 'Work', defaultRate: 0.18 },
         { id: 'dc', name: 'DC Fast', defaultRate: 0.32 },
