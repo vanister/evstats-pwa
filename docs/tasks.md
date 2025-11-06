@@ -515,11 +515,11 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.1, 4.2
 
 **Acceptance Criteria:**
-- [ ] Session cost calculated correctly
-- [ ] Totals summed accurately
-- [ ] Monthly calculations work across month boundaries
-- [ ] Grouping functions return correct aggregates
-- [ ] Edge cases handled gracefully
+- [x] Session cost calculated correctly
+- [x] Totals summed accurately
+- [x] Monthly calculations work across month boundaries
+- [x] Grouping functions return correct aggregates
+- [x] Edge cases handled gracefully
 
 ---
 
