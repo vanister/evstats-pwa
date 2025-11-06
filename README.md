@@ -105,4 +105,4 @@ The app uses IndexedDB for local storage with four pre-seeded charging locations
 
 ## License
 
-Private project
+MIT License - see [LICENSE](LICENSE) file for details
