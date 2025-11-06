@@ -91,13 +91,9 @@ describe('calculations', () => {
 
       expect(totals.totalSessions).toBe(4);
       expect(totals.totalKwh).toBe(180);
-      expect(totals.totalCost).toBe(
-        50 * 0.15 + 30 * 0.18 + 60 * 0.15 + 40 * 0.32
-      );
+      expect(totals.totalCost).toBe(50 * 0.15 + 30 * 0.18 + 60 * 0.15 + 40 * 0.32);
       expect(totals.averageKwh).toBe(45);
-      expect(totals.averageCost).toBeCloseTo(
-        (50 * 0.15 + 30 * 0.18 + 60 * 0.15 + 40 * 0.32) / 4
-      );
+      expect(totals.averageCost).toBeCloseTo((50 * 0.15 + 30 * 0.18 + 60 * 0.15 + 40 * 0.32) / 4);
     });
 
     it('should return zeros for empty array', () => {
@@ -179,9 +175,7 @@ describe('calculations', () => {
       expect(vehicle1?.totalSessions).toBe(2);
       expect(vehicle1?.totalKwh).toBe(80);
       expect(vehicle1?.totalCost).toBe(50 * 0.15 + 30 * 0.18);
-      expect(vehicle1?.averageCostPerKwh).toBeCloseTo(
-        (50 * 0.15 + 30 * 0.18) / 80
-      );
+      expect(vehicle1?.averageCostPerKwh).toBeCloseTo((50 * 0.15 + 30 * 0.18) / 80);
 
       const vehicle2 = vehicleTotals.find((v) => v.vehicleId === 'vehicle-2');
       expect(vehicle2).toBeDefined();
@@ -192,9 +186,7 @@ describe('calculations', () => {
 
     it('should sort by total cost descending', () => {
       const vehicleTotals = groupByVehicle(mockSessions);
-      expect(vehicleTotals[0].totalCost).toBeGreaterThanOrEqual(
-        vehicleTotals[1].totalCost
-      );
+      expect(vehicleTotals[0].totalCost).toBeGreaterThanOrEqual(vehicleTotals[1].totalCost);
     });
 
     it('should return empty array for no sessions', () => {
@@ -213,9 +205,7 @@ describe('calculations', () => {
       expect(home?.totalSessions).toBe(2);
       expect(home?.totalKwh).toBe(110);
       expect(home?.totalCost).toBe(50 * 0.15 + 60 * 0.15);
-      expect(home?.averageCostPerKwh).toBeCloseTo(
-        (50 * 0.15 + 60 * 0.15) / 110
-      );
+      expect(home?.averageCostPerKwh).toBeCloseTo((50 * 0.15 + 60 * 0.15) / 110);
 
       const work = locationTotals.find((l) => l.locationId === 'work');
       expect(work).toBeDefined();
@@ -229,9 +219,7 @@ describe('calculations', () => {
     it('should sort by total cost descending', () => {
       const locationTotals = groupByLocation(mockSessions);
       for (let i = 0; i < locationTotals.length - 1; i++) {
-        expect(locationTotals[i].totalCost).toBeGreaterThanOrEqual(
-          locationTotals[i + 1].totalCost
-        );
+        expect(locationTotals[i].totalCost).toBeGreaterThanOrEqual(locationTotals[i + 1].totalCost);
       }
     });
 

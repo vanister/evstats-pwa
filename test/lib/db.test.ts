@@ -38,9 +38,7 @@ describe('Database Operations', () => {
       const vehicle = await addVehicle(vehicleData);
 
       expect(vehicle.id).toBeDefined();
-      expect(vehicle.id).toMatch(
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
-      );
+      expect(vehicle.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
       expect(vehicle.year).toBe(2024);
       expect(vehicle.make).toBe('Tesla');
       expect(vehicle.model).toBe('Model 3');
@@ -111,9 +109,9 @@ describe('Database Operations', () => {
     });
 
     it('should throw error when updating non-existent vehicle', async () => {
-      await expect(
-        updateVehicle('non-existent-id', { nickname: 'Test' })
-      ).rejects.toThrow('Vehicle with id non-existent-id not found');
+      await expect(updateVehicle('non-existent-id', { nickname: 'Test' })).rejects.toThrow(
+        'Vehicle with id non-existent-id not found'
+      );
     });
 
     it('should delete a vehicle', async () => {

@@ -13,8 +13,7 @@ export default defineConfig({
       manifest: {
         name: 'EV Charge Tracker',
         short_name: 'EV Tracker',
-        description:
-          'Track electric vehicle charging sessions, costs, and statistics',
+        description: 'Track electric vehicle charging sessions, costs, and statistics',
         theme_color: '#38A169',
         background_color: '#ffffff',
         display: 'standalone',
@@ -22,24 +21,24 @@ export default defineConfig({
           {
             src: '/icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png',
+            type: 'image/png'
           },
           {
             src: '/icon-512x512.png',
             sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
+            type: 'image/png'
+          }
+        ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-      },
-    }),
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      }
+    })
   ],
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './test/setup.ts',
-    css: true,
-  },
+    css: true
+  }
 });

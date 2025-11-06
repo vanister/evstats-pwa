@@ -70,9 +70,7 @@ export async function getLocations(): Promise<Location[]> {
   return db.locations.toArray();
 }
 
-export async function getLocation(
-  id: Locations
-): Promise<Location | undefined> {
+export async function getLocation(id: Locations): Promise<Location | undefined> {
   return db.locations.get(id);
 }
 
@@ -152,23 +150,13 @@ export async function getSessions(): Promise<Session[]> {
   return db.sessions.orderBy('date').reverse().toArray();
 }
 
-export async function getSessionsByVehicle(
-  vehicleId: string
-): Promise<Session[]> {
-  return db.sessions
-    .where('vehicleId')
-    .equals(vehicleId)
-    .reverse()
-    .sortBy('date');
+export async function getSessionsByVehicle(vehicleId: string): Promise<Session[]> {
+  return db.sessions.where('vehicleId').equals(vehicleId).reverse().sortBy('date');
 }
 
 export async function getSessionsByDateRange(
   startDate: string,
   endDate: string
 ): Promise<Session[]> {
-  return db.sessions
-    .where('date')
-    .between(startDate, endDate, true, true)
-    .reverse()
-    .sortBy('date');
+  return db.sessions.where('date').between(startDate, endDate, true, true).reverse().sortBy('date');
 }

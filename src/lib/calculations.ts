@@ -160,9 +160,7 @@ export function groupByVehicle(sessions: Session[]): VehicleTotal[] {
     }
   });
 
-  return Array.from(vehicleMap.values()).sort(
-    (a, b) => b.totalCost - a.totalCost
-  );
+  return Array.from(vehicleMap.values()).sort((a, b) => b.totalCost - a.totalCost);
 }
 
 /**
@@ -195,19 +193,13 @@ export function groupByLocation(sessions: Session[]): LocationTotal[] {
     }
   });
 
-  return Array.from(locationMap.values()).sort(
-    (a, b) => b.totalCost - a.totalCost
-  );
+  return Array.from(locationMap.values()).sort((a, b) => b.totalCost - a.totalCost);
 }
 
 /**
  * Get sessions for a specific month
  */
-export function getSessionsForMonth(
-  sessions: Session[],
-  year: number,
-  month: number
-): Session[] {
+export function getSessionsForMonth(sessions: Session[], year: number, month: number): Session[] {
   if (!sessions || sessions.length === 0) {
     return [];
   }

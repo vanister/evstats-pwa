@@ -10,9 +10,7 @@ export type VehicleValidationErrors = {
   range?: string;
 };
 
-export function validateVehicle(
-  data: Partial<Vehicle>
-): VehicleValidationErrors | null {
+export function validateVehicle(data: Partial<Vehicle>): VehicleValidationErrors | null {
   const errors: VehicleValidationErrors = {};
 
   if (!data.year) {
@@ -69,19 +67,13 @@ export function validateSession(
 
   if (!data.vehicleId) {
     errors.vehicleId = 'Vehicle is required';
-  } else if (
-    typeof data.vehicleId !== 'string' ||
-    data.vehicleId.trim() === ''
-  ) {
+  } else if (typeof data.vehicleId !== 'string' || data.vehicleId.trim() === '') {
     errors.vehicleId = 'Vehicle must be selected';
   }
 
   if (!data.locationId) {
     errors.locationId = 'Location is required';
-  } else if (
-    typeof data.locationId !== 'string' ||
-    data.locationId.trim() === ''
-  ) {
+  } else if (typeof data.locationId !== 'string' || data.locationId.trim() === '') {
     errors.locationId = 'Location must be selected';
   }
 

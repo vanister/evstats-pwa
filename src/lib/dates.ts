@@ -13,10 +13,7 @@ export function getCurrentTimestamp(): string {
  * @param formatString - date-fns format string (default: 'PPp' = "Dec 28, 2024, 2:30 PM")
  * @returns Formatted date string, or empty string if invalid
  */
-export function formatDate(
-  isoString: string,
-  formatString: string = 'PPp'
-): string {
+export function formatDate(isoString: string, formatString: string = 'PPp'): string {
   try {
     const date = parseISO(isoString);
     if (!isValid(date)) {
@@ -63,8 +60,7 @@ export function formatMonthYear(isoString: string): string {
  */
 export function parseToISO(dateInput: Date | string | number): string | null {
   try {
-    const date =
-      typeof dateInput === 'string' ? parseISO(dateInput) : new Date(dateInput);
+    const date = typeof dateInput === 'string' ? parseISO(dateInput) : new Date(dateInput);
     if (!isValid(date)) {
       return null;
     }
