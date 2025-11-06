@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
 import {
   Box,
   Button,
@@ -13,7 +12,7 @@ import {
   Text,
   VStack
 } from '@chakra-ui/react';
-import { getVehicles, deleteVehicle } from '@/lib/db';
+import { useVehicles } from '@/hooks/useVehicles';
 import type { Vehicle } from '@/lib/types';
 
 type VehicleListProps = {
@@ -22,7 +21,7 @@ type VehicleListProps = {
 };
 
 export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
-  const vehicles = useLiveQuery(() => getVehicles(), []);
+  const { vehicles, loading, remove } = useVehicles();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [vehicleToDelete, setVehicleToDelete] = useState<Vehicle | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,7 +39,7 @@ export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
     setIsDeleting(true);
 
     try {
-      await deleteVehicle(vehicleToDelete.id);
+      await remove(vehicleToDelete.id);
       setDeleteDialogOpen(false);
       setVehicleToDelete(null);
 
@@ -59,7 +58,7 @@ export function VehicleList({ onEdit, onVehicleChange }: VehicleListProps) {
     setVehicleToDelete(null);
   };
 
-  if (vehicles === undefined) {
+  if (loading) {
     return (
       <Box p={4}>
         <Text color="fg.muted">Loading vehicles...</Text>

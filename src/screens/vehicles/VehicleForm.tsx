@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Button, Field, Input, Stack } from '@chakra-ui/react';
 import type { Vehicle } from '@/lib/types';
 import { validateVehicle, type VehicleValidationErrors } from '@/lib/validation';
-import { addVehicle, updateVehicle } from '@/lib/db';
+import { useVehicles } from '@/hooks/useVehicles';
 import { useImmerState } from '@/hooks/useImmerState';
 
 type VehicleFormProps = {
@@ -32,6 +32,7 @@ const initialFormData: FormData = {
 };
 
 export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) {
+  const { create, update } = useVehicles();
   const [formData, setFormData] = useImmerState<FormData>(initialFormData);
   const [errors, setErrors] = useImmerState<VehicleValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -94,10 +95,10 @@ export function VehicleForm({ vehicle, onSuccess, onCancel }: VehicleFormProps) 
 
     try {
       if (isEditMode && vehicle) {
-        await updateVehicle(vehicle.id, vehicleData as Omit<Vehicle, 'id'>);
+        await update(vehicle.id, vehicleData as Omit<Vehicle, 'id'>);
         setSuccessMessage('Vehicle updated successfully!');
       } else {
-        await addVehicle(vehicleData as Omit<Vehicle, 'id'>);
+        await create(vehicleData as Omit<Vehicle, 'id'>);
         setSuccessMessage('Vehicle added successfully!');
         setFormData(initialFormData);
       }

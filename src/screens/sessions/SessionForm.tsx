@@ -9,9 +9,11 @@ import {
   Textarea,
   Stack
 } from '@chakra-ui/react';
-import type { Vehicle, Location, Locations } from '@/lib/types';
+import type { Locations } from '@/lib/types';
 import { validateSession, type SessionValidationErrors } from '@/lib/validation';
-import { addSession, getVehicles, getLocations } from '@/lib/db';
+import { useSessions } from '@/hooks/useSessions';
+import { useVehicles } from '@/hooks/useVehicles';
+import { useLocations } from '@/hooks/useLocations';
 import { useImmerState } from '@/hooks/useImmerState';
 import { getCurrentTimestamp, parseToISO } from '@/lib/dates';
 
@@ -39,31 +41,20 @@ const initialFormData: FormData = {
 };
 
 export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
+  const { create } = useSessions();
+  const { vehicles } = useVehicles();
+  const { locations } = useLocations();
   const [formData, setFormData] = useImmerState<FormData>(initialFormData);
   const [errors, setErrors] = useImmerState<SessionValidationErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        const [vehiclesData, locationsData] = await Promise.all([getVehicles(), getLocations()]);
-        setVehicles(vehiclesData);
-        setLocations(locationsData);
-
-        setFormData((draft) => {
-          draft.date = new Date().toISOString().slice(0, 16);
-        });
-      } catch (error) {
-        setErrorMessage('Failed to load form data');
-      }
-    };
-
-    loadData();
-  }, []);
+    setFormData((draft) => {
+      draft.date = new Date().toISOString().slice(0, 16);
+    });
+  }, [setFormData]);
 
   const handleChange = (field: keyof FormData, value: string) => {
     setFormData((draft) => {
@@ -110,7 +101,7 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
     setIsLoading(true);
 
     try {
-      await addSession(sessionData as any);
+      await create(sessionData as any);
       setSuccessMessage('Session added successfully!');
       setFormData({
         ...initialFormData,

@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
 import {
   Box,
   Button,
@@ -17,8 +16,11 @@ import {
   HStack,
   Badge
 } from '@chakra-ui/react';
-import { getSessions, getVehicles, getLocations, calculateSessionCost } from '@/lib/db';
+import { calculateSessionCost } from '@/lib/db';
 import { formatDateTime, formatDateShort } from '@/lib/dates';
+import { useSessions } from '@/hooks/useSessions';
+import { useVehicles } from '@/hooks/useVehicles';
+import { useLocations } from '@/hooks/useLocations';
 
 type SessionListProps = {
   limit?: number;
@@ -32,9 +34,9 @@ type FilterState = {
 };
 
 export function SessionList({ limit }: SessionListProps) {
-  const sessions = useLiveQuery(() => getSessions(), []);
-  const vehicles = useLiveQuery(() => getVehicles(), []);
-  const locations = useLiveQuery(() => getLocations(), []);
+  const { sessions, loading: sessionsLoading } = useSessions();
+  const { vehicles, loading: vehiclesLoading } = useVehicles();
+  const { locations, loading: locationsLoading } = useLocations();
 
   const [filters, setFilters] = useState<FilterState>({
     vehicleId: '',
@@ -133,7 +135,7 @@ export function SessionList({ limit }: SessionListProps) {
   const hasActiveFilters =
     filters.vehicleId || filters.locationId || filters.startDate || filters.endDate;
 
-  if (sessions === undefined || vehicles === undefined || locations === undefined) {
+  if (sessionsLoading || vehiclesLoading || locationsLoading) {
     return (
       <Box p={4}>
         <Text color="fg.muted">Loading sessions...</Text>

@@ -3,8 +3,10 @@ import { Box, Card, Heading, Stack, Tabs } from '@chakra-ui/react';
 import { VehicleManager } from '@/screens/vehicles/VehicleManager';
 import { SessionForm } from '@/screens/sessions/SessionForm';
 import { SessionList } from '@/screens/sessions/SessionList';
+import { useDb } from '@/hooks/useDb';
 
 function App() {
+  useDb();
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleSessionAdded = () => {
