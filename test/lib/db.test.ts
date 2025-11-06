@@ -7,9 +7,12 @@ import {
   getVehicles,
   getVehicle,
   updateVehicle,
-  deleteVehicle
+  deleteVehicle,
+  getLocations,
+  getLocation,
+  updateLocationRate
 } from '@/lib/db';
-import type { Vehicle } from '@/lib/types';
+import type { Vehicle, Locations } from '@/lib/types';
 
 vi.mock('@/lib/crypto', () => ({
   generateId: vi.fn(() => crypto.randomUUID())
@@ -155,6 +158,72 @@ describe('Database Operations', () => {
     it('should throw error when deleting non-existent vehicle', async () => {
       await expect(deleteVehicle('non-existent-id')).rejects.toThrow(
         'Vehicle with id non-existent-id not found'
+      );
+    });
+  });
+
+  describe('Location Operations', () => {
+    beforeEach(async () => {
+      const db = getDb();
+      await db.locations.bulkAdd([
+        { id: 'home', name: 'Home', defaultRate: 0.17 },
+        { id: 'work', name: 'Work', defaultRate: 0.18 },
+        { id: 'dc', name: 'DC Fast', defaultRate: 0.32 },
+        { id: 'other', name: 'Other', defaultRate: 0.13 }
+      ]);
+    });
+
+    it('should get all locations', async () => {
+      const locations = await getLocations();
+
+      expect(locations).toHaveLength(4);
+      expect(locations.map((l) => l.id)).toEqual(['home', 'work', 'dc', 'other']);
+    });
+
+    it('should get a single location by id', async () => {
+      const location = await getLocation('home' as Locations);
+
+      expect(location).toBeDefined();
+      expect(location?.id).toBe('home');
+      expect(location?.name).toBe('Home');
+      expect(location?.defaultRate).toBe(0.17);
+    });
+
+    it('should return undefined for non-existent location', async () => {
+      const location = await getLocation('invalid' as Locations);
+
+      expect(location).toBeUndefined();
+    });
+
+    it('should update location rate', async () => {
+      const updated = await updateLocationRate('home' as Locations, 0.25);
+
+      expect(updated.id).toBe('home');
+      expect(updated.defaultRate).toBe(0.25);
+      expect(updated.name).toBe('Home');
+    });
+
+    it('should throw error when updating with invalid rate (zero)', async () => {
+      await expect(updateLocationRate('home' as Locations, 0)).rejects.toThrow(
+        'Rate must be greater than 0'
+      );
+    });
+
+    it('should throw error when updating with invalid rate (negative)', async () => {
+      await expect(updateLocationRate('home' as Locations, -0.5)).rejects.toThrow(
+        'Rate must be greater than 0'
+      );
+    });
+
+    it('should throw error when updating with invalid rate (too high)', async () => {
+      await expect(updateLocationRate('home' as Locations, 15)).rejects.toThrow(
+        'Rate must be less than $10/kWh'
+      );
+    });
+
+    it('should throw error when updating non-existent location', async () => {
+      await expect(updateLocationRate('invalid' as Locations, 0.25)).rejects.toThrow(
+        'Location with id invalid not found'
       );
     });
   });

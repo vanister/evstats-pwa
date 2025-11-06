@@ -101,3 +101,23 @@ export function validateSession(
 
   return Object.keys(errors).length > 0 ? errors : null;
 }
+
+export type LocationRateValidationErrors = {
+  defaultRate?: string;
+};
+
+export function validateLocationRate(rate: number): LocationRateValidationErrors | null {
+  const errors: LocationRateValidationErrors = {};
+
+  if (rate === undefined || rate === null) {
+    errors.defaultRate = 'Rate is required';
+  } else if (typeof rate !== 'number') {
+    errors.defaultRate = 'Rate must be a number';
+  } else if (rate <= 0) {
+    errors.defaultRate = 'Rate must be greater than 0';
+  } else if (rate > 10) {
+    errors.defaultRate = 'Rate must be less than $10/kWh';
+  }
+
+  return Object.keys(errors).length > 0 ? errors : null;
+}

@@ -3,6 +3,7 @@ import type { DbInstance } from './dexieDb';
 import { createDexieDb } from './dexieDb';
 import { getCurrentTimestamp } from './dates';
 import { generateId } from './crypto';
+import { validateLocationRate } from './validation';
 
 let db: DbInstance = createDexieDb();
 
@@ -72,6 +73,25 @@ export async function getLocations(): Promise<Location[]> {
 
 export async function getLocation(id: Locations): Promise<Location | undefined> {
   return db.locations.get(id);
+}
+
+export async function updateLocationRate(id: Locations, newRate: number): Promise<Location> {
+  const validationErrors = validateLocationRate(newRate);
+
+  if (validationErrors) {
+    throw new Error(validationErrors.defaultRate || 'Invalid rate');
+  }
+
+  const existing = await db.locations.get(id);
+
+  if (!existing) {
+    throw new Error(`Location with id ${id} not found`);
+  }
+
+  const updated = { ...existing, defaultRate: newRate };
+  await db.locations.put(updated);
+
+  return updated;
 }
 
 // Rate snapshot utilities

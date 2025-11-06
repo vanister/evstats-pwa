@@ -541,10 +541,10 @@ This checklist provides detailed, self-contained tasks organized by feature doma
 **Dependencies:** 2.2, 2.3
 
 **Acceptance Criteria:**
-- [ ] Can fetch all locations
-- [ ] Can update individual location rates
-- [ ] Validation prevents invalid rates
-- [ ] Default locations cannot be deleted
+- [x] Can fetch all locations
+- [x] Can update individual location rates
+- [x] Validation prevents invalid rates
+- [x] Default locations cannot be deleted
 
 ---
 
