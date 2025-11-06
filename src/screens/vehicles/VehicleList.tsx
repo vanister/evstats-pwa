@@ -11,7 +11,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { getVehicles, deleteVehicle } from '@/lib/db';
 import type { Vehicle } from '@/lib/types';

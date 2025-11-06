@@ -2,7 +2,7 @@ import {
   ChakraProvider,
   createSystem,
   defaultConfig,
-  defineConfig,
+  defineConfig
 } from '@chakra-ui/react';
 import type { ReactNode } from 'react';
 
@@ -21,9 +21,9 @@ const config = defineConfig({
           700: { value: '#276749' },
           800: { value: '#22543d' },
           900: { value: '#1c4532' },
-          950: { value: '#0f2e1f' },
-        },
-      },
+          950: { value: '#0f2e1f' }
+        }
+      }
     },
     semanticTokens: {
       colors: {
@@ -33,29 +33,29 @@ const config = defineConfig({
           fg: {
             value: {
               _light: '{colors.brand.700}',
-              _dark: '{colors.brand.300}',
-            },
+              _dark: '{colors.brand.300}'
+            }
           },
           muted: {
             value: {
               _light: '{colors.brand.100}',
-              _dark: '{colors.brand.900}',
-            },
+              _dark: '{colors.brand.900}'
+            }
           },
           subtle: {
-            value: { _light: '{colors.brand.50}', _dark: '{colors.brand.950}' },
+            value: { _light: '{colors.brand.50}', _dark: '{colors.brand.950}' }
           },
           emphasized: {
             value: {
               _light: '{colors.brand.200}',
-              _dark: '{colors.brand.800}',
-            },
+              _dark: '{colors.brand.800}'
+            }
           },
-          focusRing: { value: '{colors.brand.500}' },
-        },
-      },
-    },
-  },
+          focusRing: { value: '{colors.brand.500}' }
+        }
+      }
+    }
+  }
 });
 
 const system = createSystem(defaultConfig, config);

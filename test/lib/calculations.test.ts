@@ -8,7 +8,7 @@ import {
   groupByLocation,
   getSessionsForMonth,
   getCurrentMonthSessions,
-  getCurrentMonthTotals,
+  getCurrentMonthTotals
 } from '@/lib/calculations';
 import type { Session } from '@/lib/types';
 
@@ -21,7 +21,7 @@ describe('calculations', () => {
       date: '2024-01-15T10:00:00.000Z',
       kwhAdded: 50,
       rate: 0.15,
-      notes: 'Test session 1',
+      notes: 'Test session 1'
     },
     {
       id: '2',
@@ -30,7 +30,7 @@ describe('calculations', () => {
       date: '2024-01-20T14:00:00.000Z',
       kwhAdded: 30,
       rate: 0.18,
-      notes: 'Test session 2',
+      notes: 'Test session 2'
     },
     {
       id: '3',
@@ -39,7 +39,7 @@ describe('calculations', () => {
       date: '2024-02-10T09:00:00.000Z',
       kwhAdded: 60,
       rate: 0.15,
-      notes: 'Test session 3',
+      notes: 'Test session 3'
     },
     {
       id: '4',
@@ -48,8 +48,8 @@ describe('calculations', () => {
       date: '2024-02-25T16:00:00.000Z',
       kwhAdded: 40,
       rate: 0.32,
-      notes: 'Test session 4',
-    },
+      notes: 'Test session 4'
+    }
   ];
 
   describe('calculateTotalCost', () => {
@@ -139,7 +139,7 @@ describe('calculations', () => {
           locationId: 'home',
           date: '2024-01-31T12:00:00.000Z',
           kwhAdded: 50,
-          rate: 0.15,
+          rate: 0.15
         },
         {
           id: '2',
@@ -147,8 +147,8 @@ describe('calculations', () => {
           locationId: 'home',
           date: '2024-02-01T12:00:00.000Z',
           kwhAdded: 50,
-          rate: 0.15,
-        },
+          rate: 0.15
+        }
       ];
 
       const monthlyTotals = calculateMonthlyTotals(sessions);
@@ -270,7 +270,7 @@ describe('calculations', () => {
         locationId: 'home',
         date: now.toISOString(),
         kwhAdded: 50,
-        rate: 0.15,
+        rate: 0.15
       };
 
       const sessions = [...mockSessions, currentMonthSession];
@@ -294,7 +294,7 @@ describe('calculations', () => {
           locationId: 'home',
           date: now.toISOString(),
           kwhAdded: 50,
-          rate: 0.15,
+          rate: 0.15
         },
         {
           id: '2',
@@ -302,8 +302,8 @@ describe('calculations', () => {
           locationId: 'home',
           date: now.toISOString(),
           kwhAdded: 30,
-          rate: 0.15,
-        },
+          rate: 0.15
+        }
       ];
 
       const sessions = [...mockSessions, ...currentMonthSessions];

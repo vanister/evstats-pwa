@@ -15,7 +15,7 @@ export function getCurrentTimestamp(): string {
  */
 export function formatDate(
   isoString: string,
-  formatString: string = 'PPp',
+  formatString: string = 'PPp'
 ): string {
   try {
     const date = parseISO(isoString);

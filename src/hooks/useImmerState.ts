@@ -23,7 +23,7 @@ export function useImmerState<T>(initialState: T | (() => T)) {
   const setState = useCallback((updater: T | ((draft: Draft<T>) => void)) => {
     if (typeof updater === 'function') {
       setStateInternal((currentState) =>
-        produce(currentState, updater as (draft: Draft<T>) => void),
+        produce(currentState, updater as (draft: Draft<T>) => void)
       );
     } else {
       setStateInternal(updater);

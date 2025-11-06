@@ -11,7 +11,7 @@ export type VehicleValidationErrors = {
 };
 
 export function validateVehicle(
-  data: Partial<Vehicle>,
+  data: Partial<Vehicle>
 ): VehicleValidationErrors | null {
   const errors: VehicleValidationErrors = {};
 
@@ -63,19 +63,25 @@ export type SessionValidationErrors = {
 };
 
 export function validateSession(
-  data: Partial<Omit<Session, 'id' | 'rate'>> & { costOverride?: number },
+  data: Partial<Omit<Session, 'id' | 'rate'>> & { costOverride?: number }
 ): SessionValidationErrors | null {
   const errors: SessionValidationErrors = {};
 
   if (!data.vehicleId) {
     errors.vehicleId = 'Vehicle is required';
-  } else if (typeof data.vehicleId !== 'string' || data.vehicleId.trim() === '') {
+  } else if (
+    typeof data.vehicleId !== 'string' ||
+    data.vehicleId.trim() === ''
+  ) {
     errors.vehicleId = 'Vehicle must be selected';
   }
 
   if (!data.locationId) {
     errors.locationId = 'Location is required';
-  } else if (typeof data.locationId !== 'string' || data.locationId.trim() === '') {
+  } else if (
+    typeof data.locationId !== 'string' ||
+    data.locationId.trim() === ''
+  ) {
     errors.locationId = 'Location must be selected';
   }
 

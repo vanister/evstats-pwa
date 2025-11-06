@@ -19,7 +19,7 @@ export function getDb(): DbInstance {
 export async function addVehicle(data: Omit<Vehicle, 'id'>): Promise<Vehicle> {
   const vehicle: Vehicle = {
     id: generateId(),
-    ...data,
+    ...data
   };
 
   await db.vehicles.add(vehicle);
@@ -29,7 +29,7 @@ export async function addVehicle(data: Omit<Vehicle, 'id'>): Promise<Vehicle> {
 
 export async function updateVehicle(
   id: string,
-  updates: Partial<Omit<Vehicle, 'id'>>,
+  updates: Partial<Omit<Vehicle, 'id'>>
 ): Promise<Vehicle> {
   const existing = await db.vehicles.get(id);
 
@@ -70,7 +70,9 @@ export async function getLocations(): Promise<Location[]> {
   return db.locations.toArray();
 }
 
-export async function getLocation(id: Locations): Promise<Location | undefined> {
+export async function getLocation(
+  id: Locations
+): Promise<Location | undefined> {
   return db.locations.get(id);
 }
 
@@ -86,7 +88,11 @@ export async function getLocationRate(locationId: Locations): Promise<number> {
   return location.defaultRate;
 }
 
-export function calculateSessionCost(kwhAdded: number, rate: number, costOverride?: number): number {
+export function calculateSessionCost(
+  kwhAdded: number,
+  rate: number,
+  costOverride?: number
+): number {
   if (costOverride != null) {
     return costOverride;
   }
@@ -97,7 +103,7 @@ export function calculateSessionCost(kwhAdded: number, rate: number, costOverrid
 // Session CRUD operations
 
 export async function addSession(
-  data: Omit<Session, 'id' | 'rate'> & { costOverride?: number },
+  data: Omit<Session, 'id' | 'rate'> & { costOverride?: number }
 ): Promise<Session> {
   const rate = await getLocationRate(data.locationId);
 
@@ -108,7 +114,7 @@ export async function addSession(
     date: data.date || getCurrentTimestamp(),
     kwhAdded: data.kwhAdded,
     rate,
-    notes: data.notes,
+    notes: data.notes
   };
 
   await db.sessions.add(session);
@@ -118,7 +124,7 @@ export async function addSession(
 
 export async function updateSession(
   id: string,
-  updates: Partial<Omit<Session, 'id'>>,
+  updates: Partial<Omit<Session, 'id'>>
 ): Promise<Session> {
   const existing = await db.sessions.get(id);
 
@@ -146,10 +152,23 @@ export async function getSessions(): Promise<Session[]> {
   return db.sessions.orderBy('date').reverse().toArray();
 }
 
-export async function getSessionsByVehicle(vehicleId: string): Promise<Session[]> {
-  return db.sessions.where('vehicleId').equals(vehicleId).reverse().sortBy('date');
+export async function getSessionsByVehicle(
+  vehicleId: string
+): Promise<Session[]> {
+  return db.sessions
+    .where('vehicleId')
+    .equals(vehicleId)
+    .reverse()
+    .sortBy('date');
 }
 
-export async function getSessionsByDateRange(startDate: string, endDate: string): Promise<Session[]> {
-  return db.sessions.where('date').between(startDate, endDate, true, true).reverse().sortBy('date');
+export async function getSessionsByDateRange(
+  startDate: string,
+  endDate: string
+): Promise<Session[]> {
+  return db.sessions
+    .where('date')
+    .between(startDate, endDate, true, true)
+    .reverse()
+    .sortBy('date');
 }

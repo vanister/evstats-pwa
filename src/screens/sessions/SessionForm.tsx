@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, Field, Input, NativeSelectRoot, NativeSelectField, Textarea, Stack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Field,
+  Input,
+  NativeSelectRoot,
+  NativeSelectField,
+  Textarea,
+  Stack
+} from '@chakra-ui/react';
 import type { Vehicle, Location, Locations } from '@/lib/types';
-import { validateSession, type SessionValidationErrors } from '@/lib/validation';
+import {
+  validateSession,
+  type SessionValidationErrors
+} from '@/lib/validation';
 import { addSession, getVehicles, getLocations } from '@/lib/db';
 import { useImmerState } from '@/hooks/useImmerState';
 import { getCurrentTimestamp, parseToISO } from '@/lib/dates';
@@ -26,7 +38,7 @@ const initialFormData: FormData = {
   date: '',
   kwhAdded: '',
   costOverride: '',
-  notes: '',
+  notes: ''
 };
 
 export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
@@ -41,7 +53,10 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [vehiclesData, locationsData] = await Promise.all([getVehicles(), getLocations()]);
+        const [vehiclesData, locationsData] = await Promise.all([
+          getVehicles(),
+          getLocations()
+        ]);
         setVehicles(vehiclesData);
         setLocations(locationsData);
 
@@ -75,7 +90,9 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
     setSuccessMessage('');
     setErrorMessage('');
 
-    const dateISO = formData.date ? parseToISO(formData.date) : getCurrentTimestamp();
+    const dateISO = formData.date
+      ? parseToISO(formData.date)
+      : getCurrentTimestamp();
 
     if (!dateISO) {
       setErrors({ date: 'Invalid date format' });
@@ -87,8 +104,10 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
       locationId: formData.locationId as Locations,
       date: dateISO,
       kwhAdded: formData.kwhAdded ? Number(formData.kwhAdded) : undefined,
-      costOverride: formData.costOverride ? Number(formData.costOverride) : undefined,
-      notes: formData.notes || undefined,
+      costOverride: formData.costOverride
+        ? Number(formData.costOverride)
+        : undefined,
+      notes: formData.notes || undefined
     };
 
     const validationErrors = validateSession(sessionData);
@@ -105,14 +124,15 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
       setSuccessMessage('Session added successfully!');
       setFormData({
         ...initialFormData,
-        date: new Date().toISOString().slice(0, 16),
+        date: new Date().toISOString().slice(0, 16)
       });
 
       if (onSuccess) {
         setTimeout(() => onSuccess(), 500);
       }
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Failed to save session';
+      const message =
+        error instanceof Error ? error.message : 'Failed to save session';
       setErrorMessage(message);
     } finally {
       setIsLoading(false);
@@ -122,7 +142,7 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
   const handleReset = () => {
     setFormData({
       ...initialFormData,
-      date: new Date().toISOString().slice(0, 16),
+      date: new Date().toISOString().slice(0, 16)
     });
     setErrors({});
     setSuccessMessage('');
@@ -143,12 +163,15 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
               <option value="">Select a vehicle</option>
               {vehicles.map((vehicle) => (
                 <option key={vehicle.id} value={vehicle.id}>
-                  {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                  {vehicle.nickname ||
+                    `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
                 </option>
               ))}
             </NativeSelectField>
           </NativeSelectRoot>
-          {errors.vehicleId && <Field.ErrorText>{errors.vehicleId}</Field.ErrorText>}
+          {errors.vehicleId && (
+            <Field.ErrorText>{errors.vehicleId}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root required invalid={!!errors.locationId}>
@@ -167,7 +190,9 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
               ))}
             </NativeSelectField>
           </NativeSelectRoot>
-          {errors.locationId && <Field.ErrorText>{errors.locationId}</Field.ErrorText>}
+          {errors.locationId && (
+            <Field.ErrorText>{errors.locationId}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root required invalid={!!errors.date}>
@@ -190,7 +215,9 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
             min="0"
             step="0.1"
           />
-          {errors.kwhAdded && <Field.ErrorText>{errors.kwhAdded}</Field.ErrorText>}
+          {errors.kwhAdded && (
+            <Field.ErrorText>{errors.kwhAdded}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root invalid={!!errors.costOverride}>
@@ -203,8 +230,13 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
             min="0"
             step="0.01"
           />
-          <Field.HelperText>Override calculated cost for variable pricing (e.g., DC fast charging)</Field.HelperText>
-          {errors.costOverride && <Field.ErrorText>{errors.costOverride}</Field.ErrorText>}
+          <Field.HelperText>
+            Override calculated cost for variable pricing (e.g., DC fast
+            charging)
+          </Field.HelperText>
+          {errors.costOverride && (
+            <Field.ErrorText>{errors.costOverride}</Field.ErrorText>
+          )}
         </Field.Root>
 
         <Field.Root>
@@ -234,12 +266,22 @@ export function SessionForm({ onSuccess, onCancel }: SessionFormProps) {
             {isLoading ? 'Saving...' : 'Add Session'}
           </Button>
 
-          <Button type="button" variant="outline" onClick={handleReset} disabled={isLoading}>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleReset}
+            disabled={isLoading}
+          >
             Reset
           </Button>
 
           {onCancel && (
-            <Button type="button" variant="ghost" onClick={onCancel} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onCancel}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
           )}

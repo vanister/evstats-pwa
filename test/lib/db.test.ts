@@ -7,12 +7,12 @@ import {
   getVehicles,
   getVehicle,
   updateVehicle,
-  deleteVehicle,
+  deleteVehicle
 } from '@/lib/db';
 import type { Vehicle } from '@/lib/types';
 
 vi.mock('@/lib/crypto', () => ({
-  generateId: vi.fn(() => crypto.randomUUID()),
+  generateId: vi.fn(() => crypto.randomUUID())
 }));
 
 describe('Database Operations', () => {
@@ -32,14 +32,14 @@ describe('Database Operations', () => {
         model: 'Model 3',
         batterySize: 75,
         trim: 'Long Range',
-        nickname: 'My Tesla',
+        nickname: 'My Tesla'
       };
 
       const vehicle = await addVehicle(vehicleData);
 
       expect(vehicle.id).toBeDefined();
       expect(vehicle.id).toMatch(
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
       );
       expect(vehicle.year).toBe(2024);
       expect(vehicle.make).toBe('Tesla');
@@ -54,13 +54,13 @@ describe('Database Operations', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       });
       await addVehicle({
         year: 2023,
         make: 'Ford',
         model: 'Mustang Mach-E',
-        batterySize: 88,
+        batterySize: 88
       });
 
       const vehicles = await getVehicles();
@@ -75,7 +75,7 @@ describe('Database Operations', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       });
 
       const vehicle = await getVehicle(added.id);
@@ -96,12 +96,12 @@ describe('Database Operations', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       });
 
       const updated = await updateVehicle(added.id, {
         nickname: 'Updated Nickname',
-        range: 358,
+        range: 358
       });
 
       expect(updated.id).toBe(added.id);
@@ -112,7 +112,7 @@ describe('Database Operations', () => {
 
     it('should throw error when updating non-existent vehicle', async () => {
       await expect(
-        updateVehicle('non-existent-id', { nickname: 'Test' }),
+        updateVehicle('non-existent-id', { nickname: 'Test' })
       ).rejects.toThrow('Vehicle with id non-existent-id not found');
     });
 
@@ -121,7 +121,7 @@ describe('Database Operations', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       });
 
       await deleteVehicle(added.id);
@@ -135,7 +135,7 @@ describe('Database Operations', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       });
 
       const db = getDb();
@@ -145,7 +145,7 @@ describe('Database Operations', () => {
         locationId: 'home',
         date: new Date().toISOString(),
         kwhAdded: 50,
-        rate: 0.17,
+        rate: 0.17
       });
 
       await deleteVehicle(vehicle.id);
@@ -156,7 +156,7 @@ describe('Database Operations', () => {
 
     it('should throw error when deleting non-existent vehicle', async () => {
       await expect(deleteVehicle('non-existent-id')).rejects.toThrow(
-        'Vehicle with id non-existent-id not found',
+        'Vehicle with id non-existent-id not found'
       );
     });
   });

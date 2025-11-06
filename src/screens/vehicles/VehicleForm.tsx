@@ -3,7 +3,7 @@ import { Box, Button, Field, Input, Stack } from '@chakra-ui/react';
 import type { Vehicle } from '@/lib/types';
 import {
   validateVehicle,
-  type VehicleValidationErrors,
+  type VehicleValidationErrors
 } from '@/lib/validation';
 import { addVehicle, updateVehicle } from '@/lib/db';
 import { useImmerState } from '@/hooks/useImmerState';
@@ -31,13 +31,13 @@ const initialFormData: FormData = {
   batterySize: '',
   trim: '',
   nickname: '',
-  range: '',
+  range: ''
 };
 
 export function VehicleForm({
   vehicle,
   onSuccess,
-  onCancel,
+  onCancel
 }: VehicleFormProps) {
   const [formData, setFormData] = useImmerState<FormData>(initialFormData);
   const [errors, setErrors] = useImmerState<VehicleValidationErrors>({});
@@ -56,7 +56,7 @@ export function VehicleForm({
         batterySize: vehicle.batterySize.toString(),
         trim: vehicle.trim || '',
         nickname: vehicle.nickname || '',
-        range: vehicle.range?.toString() || '',
+        range: vehicle.range?.toString() || ''
       });
     }
   }, [vehicle]);
@@ -89,7 +89,7 @@ export function VehicleForm({
         : undefined,
       trim: formData.trim || undefined,
       nickname: formData.nickname || undefined,
-      range: formData.range ? Number(formData.range) : undefined,
+      range: formData.range ? Number(formData.range) : undefined
     };
 
     const validationErrors = validateVehicle(vehicleData);
@@ -133,7 +133,7 @@ export function VehicleForm({
         batterySize: vehicle.batterySize.toString(),
         trim: vehicle.trim || '',
         nickname: vehicle.nickname || '',
-        range: vehicle.range?.toString() || '',
+        range: vehicle.range?.toString() || ''
       });
     } else {
       setFormData(initialFormData);

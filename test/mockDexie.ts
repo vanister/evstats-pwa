@@ -43,10 +43,10 @@ function createMockTable<T extends TableData>() {
               data.delete(id);
             }
           }
-        }),
-      }),
+        })
+      })
     })),
-    clear: () => data.clear(),
+    clear: () => data.clear()
   };
 }
 
@@ -69,6 +69,6 @@ export function createMockDb(): MockDbInstance {
       vehicles.clear();
       locations.clear();
       sessions.clear();
-    },
+    }
   } as unknown as MockDbInstance;
 }

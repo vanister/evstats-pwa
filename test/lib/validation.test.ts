@@ -8,7 +8,7 @@ describe('validation utility', () => {
         year: 2024,
         make: 'Tesla',
         model: 'Model 3',
-        batterySize: 75,
+        batterySize: 75
       };
 
       const errors = validateVehicle(validVehicle);

@@ -71,7 +71,7 @@ export function calculateSessionTotals(sessions: Session[]): SessionTotals {
       totalKwh: 0,
       totalCost: 0,
       averageCost: 0,
-      averageKwh: 0,
+      averageKwh: 0
     };
   }
 
@@ -83,7 +83,7 @@ export function calculateSessionTotals(sessions: Session[]): SessionTotals {
     totalKwh,
     totalCost,
     averageCost: totalCost / sessions.length,
-    averageKwh: totalKwh / sessions.length,
+    averageKwh: totalKwh / sessions.length
   };
 }
 
@@ -120,7 +120,7 @@ export function calculateMonthlyTotals(sessions: Session[]): MonthlyTotal[] {
         monthYear,
         totalSessions: 1,
         totalKwh: session.kwhAdded,
-        totalCost: sessionCost,
+        totalCost: sessionCost
       });
     }
   });
@@ -155,7 +155,7 @@ export function groupByVehicle(sessions: Session[]): VehicleTotal[] {
         totalSessions: 1,
         totalKwh: session.kwhAdded,
         totalCost: sessionCost,
-        averageCostPerKwh: sessionCost / session.kwhAdded,
+        averageCostPerKwh: sessionCost / session.kwhAdded
       });
     }
   });
@@ -190,7 +190,7 @@ export function groupByLocation(sessions: Session[]): LocationTotal[] {
         totalSessions: 1,
         totalKwh: session.kwhAdded,
         totalCost: sessionCost,
-        averageCostPerKwh: sessionCost / session.kwhAdded,
+        averageCostPerKwh: sessionCost / session.kwhAdded
       });
     }
   });

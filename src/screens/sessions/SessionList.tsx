@@ -15,9 +15,14 @@ import {
   Text,
   VStack,
   HStack,
-  Badge,
+  Badge
 } from '@chakra-ui/react';
-import { getSessions, getVehicles, getLocations, calculateSessionCost } from '@/lib/db';
+import {
+  getSessions,
+  getVehicles,
+  getLocations,
+  calculateSessionCost
+} from '@/lib/db';
 import { formatDateTime, formatDateShort } from '@/lib/dates';
 
 type SessionListProps = {
@@ -40,13 +45,13 @@ export function SessionList({ limit }: SessionListProps) {
     vehicleId: '',
     locationId: '',
     startDate: '',
-    endDate: '',
+    endDate: ''
   });
 
   const handleFilterChange = (field: keyof FilterState, value: string) => {
     setFilters((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: value
     }));
   };
 
@@ -55,7 +60,7 @@ export function SessionList({ limit }: SessionListProps) {
       vehicleId: '',
       locationId: '',
       startDate: '',
-      endDate: '',
+      endDate: ''
     });
   };
 
@@ -97,14 +102,17 @@ export function SessionList({ limit }: SessionListProps) {
       return {
         totalSessions: 0,
         totalKwh: 0,
-        totalCost: 0,
+        totalCost: 0
       };
     }
 
     return {
       totalSessions: filteredSessions.length,
       totalKwh: filteredSessions.reduce((sum, s) => sum + s.kwhAdded, 0),
-      totalCost: filteredSessions.reduce((sum, s) => sum + calculateSessionCost(s.kwhAdded, s.rate), 0),
+      totalCost: filteredSessions.reduce(
+        (sum, s) => sum + calculateSessionCost(s.kwhAdded, s.rate),
+        0
+      )
     };
   }, [filteredSessions]);
 
@@ -116,7 +124,9 @@ export function SessionList({ limit }: SessionListProps) {
     if (!vehicle) {
       return 'Unknown Vehicle';
     }
-    return vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+    return (
+      vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`
+    );
   };
 
   const getLocationName = (locationId: string): string => {
@@ -128,9 +138,16 @@ export function SessionList({ limit }: SessionListProps) {
   };
 
   const hasActiveFilters =
-    filters.vehicleId || filters.locationId || filters.startDate || filters.endDate;
+    filters.vehicleId ||
+    filters.locationId ||
+    filters.startDate ||
+    filters.endDate;
 
-  if (sessions === undefined || vehicles === undefined || locations === undefined) {
+  if (
+    sessions === undefined ||
+    vehicles === undefined ||
+    locations === undefined
+  ) {
     return (
       <Box p={4}>
         <Text color="fg.muted">Loading sessions...</Text>
@@ -167,12 +184,15 @@ export function SessionList({ limit }: SessionListProps) {
               <NativeSelectRoot>
                 <NativeSelectField
                   value={filters.vehicleId}
-                  onChange={(e) => handleFilterChange('vehicleId', e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange('vehicleId', e.target.value)
+                  }
                 >
                   <option value="">All Vehicles</option>
                   {vehicles.map((vehicle) => (
                     <option key={vehicle.id} value={vehicle.id}>
-                      {vehicle.nickname || `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                      {vehicle.nickname ||
+                        `${vehicle.year} ${vehicle.make} ${vehicle.model}`}
                     </option>
                   ))}
                 </NativeSelectField>
@@ -184,7 +204,9 @@ export function SessionList({ limit }: SessionListProps) {
               <NativeSelectRoot>
                 <NativeSelectField
                   value={filters.locationId}
-                  onChange={(e) => handleFilterChange('locationId', e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange('locationId', e.target.value)
+                  }
                 >
                   <option value="">All Locations</option>
                   {locations.map((location) => (
@@ -201,7 +223,9 @@ export function SessionList({ limit }: SessionListProps) {
               <Input
                 type="date"
                 value={filters.startDate}
-                onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange('startDate', e.target.value)
+                }
               />
             </Field.Root>
 
@@ -278,7 +302,9 @@ export function SessionList({ limit }: SessionListProps) {
                 <Stack gap={3}>
                   <HStack justify="space-between" align="start" wrap="wrap">
                     <Box>
-                      <Heading size="sm">{getVehicleName(session.vehicleId)}</Heading>
+                      <Heading size="sm">
+                        {getVehicleName(session.vehicleId)}
+                      </Heading>
                       <Text color="fg.muted" textStyle="sm">
                         {formatDateTime(session.date)}
                       </Text>
@@ -293,27 +319,37 @@ export function SessionList({ limit }: SessionListProps) {
                       <Text textStyle="xs" color="fg.muted">
                         Energy Added
                       </Text>
-                      <Text fontWeight="medium">{session.kwhAdded.toFixed(2)} kWh</Text>
+                      <Text fontWeight="medium">
+                        {session.kwhAdded.toFixed(2)} kWh
+                      </Text>
                     </Box>
                     <Box>
                       <Text textStyle="xs" color="fg.muted">
                         Rate
                       </Text>
-                      <Text fontWeight="medium">${session.rate.toFixed(3)}/kWh</Text>
+                      <Text fontWeight="medium">
+                        ${session.rate.toFixed(3)}/kWh
+                      </Text>
                     </Box>
                     <Box>
                       <Text textStyle="xs" color="fg.muted">
                         Cost
                       </Text>
                       <Text fontWeight="medium" colorPalette="green">
-                        ${calculateSessionCost(session.kwhAdded, session.rate).toFixed(2)}
+                        $
+                        {calculateSessionCost(
+                          session.kwhAdded,
+                          session.rate
+                        ).toFixed(2)}
                       </Text>
                     </Box>
                     <Box>
                       <Text textStyle="xs" color="fg.muted">
                         Date
                       </Text>
-                      <Text fontWeight="medium">{formatDateShort(session.date)}</Text>
+                      <Text fontWeight="medium">
+                        {formatDateShort(session.date)}
+                      </Text>
                     </Box>
                   </SimpleGrid>
 
