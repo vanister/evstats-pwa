@@ -162,6 +162,7 @@ src/
 5. Test thoroughly before marking task complete
 6. Confirm task completion with user before moving to next task
 7. Commit after each major task completion (including the updated `docs/tasks.md`)
+8. Format code to 80 chars per the .pretterrc file settings 
 
 ## MVP Features (v1.0)
 Focus on these features only:
